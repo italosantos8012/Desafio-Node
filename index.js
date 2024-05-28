@@ -1,11 +1,10 @@
-const uuid = require('uuid')
-const express = require('express')
+import express from 'express'
+import { v4 } from 'uuid'
+import cors from 'cors'
 
-const port = 3000
+const port = 3001
 const app = express()
 app.use(express.json())
-
-const cors = require('cors')
 app.use(cors())
 
 const orders = []
@@ -40,7 +39,7 @@ const checkUrlandMethod = (req, res, next) => {
 
 app.post("/orders", checkUrlandMethod, (req, res) => {
     const { items, clientName, price } = req.body // RECEBE PELO BODY (CLIENTE)
-    const order = { id: uuid.v4(), items, clientName, price, status: "Em preparação" } // MONTA O OBJETO
+    const order = { id: v4(), items, clientName, price, status: "Em preparação" } // MONTA O OBJETO
     orders.push(order) // ADICIONA O OBJETO MONTADO DENTRO DO ARRAY
     return res.status(201).json(order) // RETORNA O OBJETO CRIADO COM SUCESSO
 })
